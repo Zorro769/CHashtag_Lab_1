@@ -24,9 +24,12 @@ namespace ConsoleApp1
         }
         public Filee()
         {
-            Name = "D:\\Forestry\\OOP\\Lab_1\\ConsoleApp1\\ConsoleApp1\\default.txt";
+            Name = "default.txt";
             DateCreation = new DateTime(2022,02,21,22,00,00);
-            Length= 0;
+            var fileName = $"D:\\Forestry\\OOP\\Lab_1\\CHashtag_Lab_1\\ConsoleApp1\\{this.Name}";
+            FileInfo fi = new FileInfo(fileName);
+            var size = fi.Length;
+            Length = size;
         }
         public string Name
         {
@@ -75,7 +78,7 @@ namespace ConsoleApp1
             }
             try
             {
-                using (StreamWriter sw = File.AppendText(this.Name))
+                using (StreamWriter sw = File.AppendText($"D:\\Forestry\\OOP\\Lab_1\\CHashtag_Lab_1\\ConsoleApp1\\{this.Name}"))
                 {
                     sw.Write(text);
                 }
@@ -96,7 +99,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Filee obj = new Filee("D:\\Forestry\\OOP\\Lab_1\\ConsoleApp1\\ConsoleApp1\\letter.txt", new DateTime(2008, 5, 1, 8, 30, 52), 45);
+            Filee obj = new Filee("letter.txt", new DateTime(2008, 5, 1, 8, 30, 52), 45);
             Filee obj1 = new Filee();
             obj.Append("Haidudu");
             obj1.Append("XAM");
