@@ -25,10 +25,11 @@ namespace ConsoleApp1
         public Filee()
         {
             Name = "default.txt";
-            DateCreation = new DateTime(2022,02,21,22,00,00);
             var fileName = $"D:\\Forestry\\OOP\\Lab_1\\CHashtag_Lab_1\\ConsoleApp1\\{this.Name}";
-            FileInfo fi = new FileInfo(fileName);
-            var size = fi.Length;
+            FileInfo file_1 = new FileInfo(fileName);
+            var size = file_1.Length;
+            var date = file_1.CreationTime;
+            DateCreation = date;
             Length = size;
         }
         public string Name
