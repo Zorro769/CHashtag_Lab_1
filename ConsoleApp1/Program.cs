@@ -37,11 +37,20 @@ namespace ConsoleApp1
             get => name;
             set
             {
-                if (String.IsNullOrEmpty(value))
+                try
                 {
-                    throw new ArgumentException("The name cannot be empty!!!");
+                    if (String.IsNullOrEmpty(value))
+                    {
+                        throw new ArgumentException("The name cannot be empty!!!");
+                    }
+                    name = value;
                 }
-                name = value;
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message,"Try Again: \n");
+                    value = Convert.ToString(Console.ReadLine());
+                    Name = value;
+                }
             }
         }
         public DateTime DateCreation
@@ -50,12 +59,20 @@ namespace ConsoleApp1
 
             set
             {
-                if(value > DateTime.Now)
+                try
                 {
-                    throw new ArgumentException("Creation Date cannot be current");
+                    if (value > DateTime.Now)
+                    {
+                        throw new ArgumentException("Creation Date cannot be current");
+                    }
+                    dateCreation = value;
                 }
-                dateCreation = value;
-                
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message, "Try Again: \n");
+                    value = Convert.ToDateTime(Console.ReadLine());
+                    DateCreation = value;
+                } 
             }
         }
         public long Length
@@ -64,11 +81,21 @@ namespace ConsoleApp1
 
             set
             {
-                if(value < 0)
+                try
                 {
-                    throw new ArgumentException("Length cannot be zero or less");
+                    if (value < 0)
+                    {
+                        throw new ArgumentException("Length cannot be zero or less");
+                    }
+                    length = value;
                 }
-                length = value;
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message, "Try Again: \n");
+                    value = Convert.ToInt64(Console.ReadLine());
+                    Length = value;
+                }
+       
             }
         }
         public void Append(string text)
@@ -106,6 +133,14 @@ namespace ConsoleApp1
             obj1.Append("XAM");
             Console.WriteLine(obj);
             Console.WriteLine(obj1);
+            string fileName;
+            DateTime creationDate;
+            long length;
+            fileName = Console.ReadLine();
+            creationDate = Convert.ToDateTime(Console.ReadLine());
+            length = Convert.ToInt64(Console.ReadLine());
+            Filee obj2 = new Filee(fileName,creationDate,length);
+            Console.WriteLine(obj2);
             Console.ReadKey();
         }
     }
