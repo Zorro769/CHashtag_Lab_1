@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ConsoleApp1
 {
@@ -37,20 +32,11 @@ namespace ConsoleApp1
             get => name;
             set
             {
-                try
-                {
                     if (String.IsNullOrEmpty(value))
                     {
                         throw new ArgumentException("The name cannot be empty!!!");
                     }
                     name = value;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message,"Try Again: \n");
-                    value = Convert.ToString(Console.ReadLine());
-                    Name = value;
-                }
             }
         }
         public DateTime DateCreation
@@ -59,20 +45,11 @@ namespace ConsoleApp1
 
             set
             {
-                try
-                {
                     if (value > DateTime.Now)
                     {
                         throw new ArgumentException("Creation Date cannot be current");
                     }
                     dateCreation = value;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message, "Try Again: \n");
-                    value = Convert.ToDateTime(Console.ReadLine());
-                    DateCreation = value;
-                } 
             }
         }
         public long Length
@@ -81,21 +58,11 @@ namespace ConsoleApp1
 
             set
             {
-                try
-                {
                     if (value < 0)
                     {
                         throw new ArgumentException("Length cannot be zero or less");
                     }
                     length = value;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message, "Try Again: \n");
-                    value = Convert.ToInt64(Console.ReadLine());
-                    Length = value;
-                }
-       
             }
         }
         public void Append(string text)
@@ -104,17 +71,9 @@ namespace ConsoleApp1
             {
                 throw new ArgumentException("Text cannot be empty!!!");
             }
-            try
+            using (StreamWriter sw = File.AppendText($"D:\\Forestry\\OOP\\Lab_1\\CHashtag_Lab_1\\ConsoleApp1\\{this.Name}"))
             {
-                using (StreamWriter sw = File.AppendText($"D:\\Forestry\\OOP\\Lab_1\\CHashtag_Lab_1\\ConsoleApp1\\{this.Name}"))
-                {
-                    sw.Write(text);
-                }
-
-            }
-            catch(IOException e)    
-            {
-                throw new Exception($"Failed to append to file '{name}'.", e);
+                sw.Write(text);
             }
         }
         public override string ToString()
@@ -127,10 +86,25 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Filee obj = new Filee("letter.txt", new DateTime(2008, 5, 1, 8, 30, 52), 45);
-            Filee obj1 = new Filee();
-            obj.Append("Haidudu");
-            obj1.Append("XAM");
+            Filee obj = null,obj1 = null;
+            try
+            {
+                obj = new Filee("letter.txt", new DateTime(2008, 5, 1, 8, 30, 52), 45);
+                obj1 = new Filee();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            try
+            {
+                obj.Append("Haidudu");
+                obj1.Append("XAM");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             Console.WriteLine(obj);
             Console.WriteLine(obj1);
             string fileName;
